@@ -1,0 +1,12 @@
+
+
+<ul class="nav p-3 bg-primary text-white ">
+       
+        <li class="nav-item" *ngIf="!log" >
+          <a class="nav-link" (click)="logout()" >Logout</a>
+        </li>
+        <li class="nav-item" >
+          <a class="nav-link">Productividad Abraxa</a>
+        </li>
+      </ul>
+<router-outlet></router-outlet>

@@ -1,0 +1,9 @@
+
+  <h4 id="time" type="text"></h4>
+ <div class="row">
+    <a class="btn btn-primary text-white" (click)="paus()" *ngIf="!pause" role="Pausa">Pausa</a>
+    <a class="btn btn-primary text-white" (click)="cont()" *ngIf="pause" role="Continuar">Continuar</a>
+    <a class="btn btn-primary text-white" (click)="restar()" *ngIf="pauseV" role="Reiniciar">Reiniciar</a>
+    <a class="btn btn-danger text-white" (click)="finish()" role="Reiniciar">Terminado</a>
+ </div>
+  

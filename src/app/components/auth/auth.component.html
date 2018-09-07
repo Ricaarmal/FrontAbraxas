@@ -1,0 +1,46 @@
+
+
+
+  <div class="container">
+      <div class="row">
+        <div class="col-sm">
+        </div>
+        <div class="col-sm">
+            <div class="card" style="width: 28rem;">
+                <img class="card-img-top" src="https://www.marketeroslatam.com/wp-content/uploads/2017/03/productividad_1.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <div *ngIf="register==false">
+                        <h5 class="card-title">Registrate</h5>
+                        <div class="form-group">
+                            <p *ngIf="userExistent==true" style="color: red">Usuario Existente</p>
+                            <input [(ngModel)]="auth.email" class="form-control" placeholder="Ingrese su username" type="text">
+                        </div>
+                        <div class="form-group">
+                            <input placeholder="Ingrese su contraseña" class="form-control" [(ngModel)]="auth.password" type="password">
+                        </div>
+                        <div class="form-group">
+                            <p *ngIf="auth.password!= auth.password2&&auth.password2" style="color: red">Tu contraseña no coicide</p>
+                            <input placeholder="Repita su contraseña" class="form-control" [(ngModel)]="auth.password2"  type="password">
+                        </div>
+                        <p>Ya tienes cuenta? <a (click)="loginTrue()" >Click aquí</a></p>
+                        <a (click)="signup()" class="btn btn-primary text-white">Registrarse</a>
+                    </div>
+                    <div *ngIf="register==true">
+                  <h5 class="card-title">Iniciar Sesion</h5>
+                  <div class="form-group">
+                      <p class="card-text" *ngIf="userExistent" style="color: red">Ususario o contraseña incorrecta</p>
+                      <input [(ngModel)]="auth.email" class="form-control" placeholder="Ingrese su username" type="text">
+                  </div>
+                  <div class="form-group">
+                      <input placeholder="Ingrese su email" class="form-control" [(ngModel)]="auth.password" type="password">
+                  </div>
+                    <p>No tienes cuenta? <a (click)="loginFalse()" >Click aquí</a></p>
+                  <a (click)="log()" class="btn btn-primary text-white">Iniciar Seccion</a>
+                  </div>
+                </div>
+              </div>
+        </div>
+        <div class="col-sm">   
+    </div>
+  </div>
+</div>

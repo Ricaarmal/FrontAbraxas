@@ -1,0 +1,148 @@
+
+<ul class="nav nav-tabs p-3 mb-2 bg-info text-white justify-content-center">
+        <li class="nav-item" (click)="new=false">
+          <a class="nav-link " (click)="tareasFinish=false" >Tareas pendientes</a>
+        </li>
+        <li class="nav-item" (click)="new=false">
+          <a class="nav-link " (click)="tareasFinish=true" >Tareas terminadas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " (click)="newTar()" >Nueva tarea</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " (click)="history()" >Historial</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " (click)="random()" >Generar tareas</a>
+        </li>
+</ul>
+
+<div *ngIf="!new&&!tareasFinish">
+    <h2>Tareas pendientes</h2>
+    <h4 *ngIf="tp">No hay tareas pendientes</h4>
+    <div class="row">
+        <div *ngFor="let p of tareas">
+            <div *ngIf="!p.status" class="card" style="width: 28rem;">
+                <div *ngIf="!edit">
+                    <h5 class="card-title p-3 mb-2 bg-primary text-white">Titulo: {{p.title}}</h5>
+                    <p class="card-text">Descripcion: {{p.description}}</p>
+                    <p class="card-text" *ngIf="start!=p._id">Duracion: {{p.duration}}</p>
+                     <p>Tiempo en complatarlo: {{p.time}}</p>
+                     <div *ngIf="start==p._id">
+                        <timer [seconds]=seconds [minutes]=minutes [id]="id" (tareas)="update()" ></timer>
+                    </div>
+                    <div class="row">
+                        <a class="btn btn-primary text-white" (click)="editTarea(p._id)" >Edtar</a> 
+                        <a class="btn btn-danger text-white" (click)="componen(p)" *ngIf="!start&&p.time==finish" >Comenzar</a>
+                    </div>
+                </div>
+                <div *ngIf="edit==p._id">
+                    <div class="form-group">
+                        <label>Titulo:</label>
+                          <input [(ngModel)]="p.title" class="form-control" type="text">
+                      </div>
+                      <div class="form-group">
+                          <label>Descripcion:</label>
+                          <input [(ngModel)]="p.description" class="form-control" type="text">
+                      </div>
+                      <div class="form-group">
+                          <label>Duracion:</label>
+                          <input [(ngModel)]="p.duration" class="form-control" type="time">
+                      </div>
+                      <div class="row">
+                          <a class="btn btn-primary text-white" (click)="editT(p)" >Edtar</a>
+                          <a class="btn btn-danger  text-white" (click)="delete(p._id)" >Eliminar</a>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div *ngIf="tareasFinish&&!new">
+    <h2>Tareas completadas</h2>
+    <h4 *ngIf="tc">No hay tareas completadas</h4>
+    <div class="row">
+        <div *ngFor="let p of tareas">
+            <div *ngIf="p.status" class="card" style="width: 28rem;">
+                <div *ngIf="!edit">
+                    <h5 class="card-title p-3 mb-2 bg-primary text-white">Titulo: {{p.title}}</h5>
+                    <p class="card-text">Descripcion: {{p.description}}</p>
+                    <p class="card-text" *ngIf="start!=p._id">Duracion: {{p.duration}}</p>
+                    <p>Tiempo en complatarlo: {{p.time}}</p>
+                    <a class="btn btn-primary text-white" (click)="editTarea(p._id)" >Edtar</a>
+                </div>
+                <div *ngIf="edit==p._id">
+                    <div class="form-group">
+                        <label>Titulo:</label>
+                        <input [(ngModel)]="p.title" class="form-control" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label>Descripcion:</label>
+                        <input [(ngModel)]="p.description" class="form-control" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label>Duracion:</label>
+                        <input [(ngModel)]="p.duration" class="form-control" type="time">
+                    </div>
+                    <div class="row">
+                        <a class="btn btn-primary text-white" (click)="editT(p)" >Edtar</a>
+                        <a class="btn btn-danger  text-white" (click)="delete(p._id)" >Eliminar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="container" *ngIf="new">
+        <div class="row">
+          <div class="col-sm">
+            
+          </div>
+          <div class="col-sm">
+                <div class="card" style="width: 28rem;">
+                        <img class="card-img-top" src="https://blog.iic.org/wp-content/uploads/2018/02/como-apoyar-la-productividad-empresarial-864x520.jpg" alt="Card image cap">
+                        <div class="card-body">
+                          <h5 class="card-title">Nueva Tarea</h5>
+                          <div class="form-group">
+                            <input placeholder="Titulo" class="form-control" [(ngModel)]="tarea.title" type="text">
+                          </div>
+                          <div class="form-group">
+                            <input placeholder="Descripcion" class="form-control" [(ngModel)]="tarea.description" type="text">
+                          </div>
+                          <div class="form-group">
+                                <h3 *ngIf="pass" style="color:red">El tiempo maximo son 2:00 horas</h3>
+                                <select *ngIf="!otro" [(ngModel)]="tarea.duration" class="form-control">
+                                      <option value="">---Please select---</option>  
+                                      <option value="00:30">30 min o menos</option>
+                                      <option value="01:00">30 min a 1 hr</option>
+                                      <option value="02:00">más de 1 hora</option>
+                                </select>
+                                <input *ngIf="otro" class="form-control" type="time" [(ngModel)]="tarea.duration" >
+                          </div>
+                          <div class="container">
+                                <div class="row">
+                                  <div class="col-sm" *ngIf="!otro" >
+                                    <a class="btn btn-primary text-white" (click)="duration()" >Espesificar Duracion</a>
+                                  </div>
+                                  <div class="col-sm">
+                                    <a (click)="newTarea()" class="btn bg-danger text-white">Crear</a>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+          </div>
+          <div class="col-sm">
+          </div>
+        </div>
+</div>

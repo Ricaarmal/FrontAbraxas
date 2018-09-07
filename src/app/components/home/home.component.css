@@ -1,0 +1,10 @@
+.row{
+justify-content: space-around;
+margin-bottom: 10px !important;
+}
+.card{
+    margin-bottom: 15px !important;
+}
+h2, h4{
+    text-align: center;
+}
